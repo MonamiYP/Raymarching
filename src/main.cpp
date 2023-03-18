@@ -88,8 +88,6 @@ int main() {
     shader.CreateShaderProgram(vertex_source, fragment_source);
 
     shader.Bind();
-    shader.SetFloat("u_width", WINDOW_WIDTH);
-    shader.SetFloat("u_height", WINDOW_HEIGHT);
 
     Renderer renderer;
 
@@ -100,6 +98,9 @@ int main() {
 
         processInput(window);
         renderer.Clear();
+
+        shader.SetFloat("u_width", WINDOW_WIDTH);
+        shader.SetFloat("u_height", WINDOW_HEIGHT);
 
         renderer.Draw(VAO, IBO, shader);
         
