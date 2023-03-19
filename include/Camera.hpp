@@ -5,7 +5,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 enum CameraMovementDir {
-    UP, DOWN, LEFT, RIGHT
+    UP, DOWN, LEFT, RIGHT, FORWARDS, BACKWARDS
 };
 
 class Camera {
@@ -37,4 +37,6 @@ class Camera {
         float GetFOV();
         glm::vec3 GetPosition();
         glm::vec3 GetForwards();
+        glm::vec2 GetAngles();
+        glm::vec3 GetUp();
 };

@@ -23,7 +23,7 @@ void processInput(GLFWwindow* window);
 void mouse_callback(GLFWwindow* window, double xPos, double yPos);
 void scroll_callback(GLFWwindow* window, double xScroll, double yScroll);
 
-Camera camera(glm::vec3(0.0f, 0.0f, 8.0f));
+Camera camera(glm::vec3(0.0f, 0.0f, 0.0f));
 
 const float WINDOW_WIDTH = 1200.0f;
 const float WINDOW_HEIGHT = 800.0f;
@@ -102,6 +102,17 @@ int main() {
         shader.SetFloat("u_width", WINDOW_WIDTH);
         shader.SetFloat("u_height", WINDOW_HEIGHT);
 
+        glm::vec3 cameraPos = camera.GetPosition();
+        shader.SetVector3("u_cameraPos", cameraPos);
+        glm::vec2 cameraAngles = camera.GetAngles();
+        shader.SetVector2("u_cameraAngles", cameraAngles);
+        glm::vec3 cameraFrontDir = camera.GetForwards();
+        shader.SetVector3("u_cameraFrontDir", cameraFrontDir);
+        glm::vec3 cameraUpDir = camera.GetUp();
+        shader.SetVector3("u_cameraUp", cameraUpDir);
+        glm::mat4 view = camera.GetCameraView();
+        shader.SetMatrix4("u_view", view);
+
         renderer.Draw(VAO, IBO, shader);
         
         glfwSwapBuffers(window);
@@ -133,11 +144,15 @@ void processInput(GLFWwindow* window) {
         glfwSetWindowShouldClose(window, true);
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera.ProcessKeyboardInput(UP, deltaTime);
+        camera.ProcessKeyboardInput(FORWARDS, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        camera.ProcessKeyboardInput(DOWN, deltaTime);
+        camera.ProcessKeyboardInput(BACKWARDS, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
         camera.ProcessKeyboardInput(LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         camera.ProcessKeyboardInput(RIGHT, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+        camera.ProcessKeyboardInput(UP, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+        camera.ProcessKeyboardInput(DOWN, deltaTime);
 }
