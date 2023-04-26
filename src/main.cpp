@@ -101,15 +101,16 @@ int main() {
 
         shader.SetFloat("u_width", WINDOW_WIDTH);
         shader.SetFloat("u_height", WINDOW_HEIGHT);
+        shader.SetFloat("u_time", currentTime);
 
-        glm::vec3 cameraPos = camera.GetPosition();
-        shader.SetVector3("u_cameraPos", cameraPos);
-        glm::vec2 cameraAngles = camera.GetAngles();
-        shader.SetVector2("u_cameraAngles", cameraAngles);
-        glm::vec3 cameraFrontDir = camera.GetForwards();
-        shader.SetVector3("u_cameraFrontDir", cameraFrontDir);
-        glm::vec3 cameraUpDir = camera.GetUp();
-        shader.SetVector3("u_cameraUp", cameraUpDir);
+        //glm::vec3 cameraPos = camera.GetPosition();
+        //shader.SetVector3("u_cameraPos", cameraPos);
+        //glm::vec2 cameraAngles = camera.GetAngles();
+        //shader.SetVector2("u_cameraAngles", cameraAngles);
+        //glm::vec3 cameraFrontDir = camera.GetForwards();
+        //shader.SetVector3("u_cameraFrontDir", cameraFrontDir);
+        //glm::vec3 cameraUpDir = camera.GetUp();
+        //shader.SetVector3("u_cameraUp", cameraUpDir);
         glm::mat4 view = camera.GetCameraView();
         shader.SetMatrix4("u_view", view);
 
